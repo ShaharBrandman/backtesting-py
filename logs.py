@@ -7,7 +7,7 @@ import json
         "DOGE": []"""
 
 LEVERAGE = 35
-MAX_POSITIONS = 3
+MAX_POSITIONS = 4
 
 currentTotal = 100
 budget = currentTotal / MAX_POSITIONS
@@ -37,10 +37,8 @@ with open('logs.json', 'r') as r:
 
         gain = (currentTotal * 100) / pTotal
 
-        if gain > 100:
-            gain = gain - 100
-        else:
-            gain = 100 - gain
+        #idk man, makes no sense
+        gain = gain - 100
 
         print(f'{i} currentTotal: {currentTotal}, P&L: {gain}%, previousTotal: {pTotal}')
         pTotal = currentTotal

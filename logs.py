@@ -12,7 +12,7 @@ MAX_POSITIONS = 3
 currentTotal = 100
 budget = currentTotal / MAX_POSITIONS
 
-print(f'Starting backtesting of pumpy.py with {LEVERAGE}X Leverage, portoflio: {currentTotal}, budget: {budget}, maxPositions: {MAX_POSITIONS}')
+print(f'Starting backtesting with {LEVERAGE}X Leverage, portoflio: {currentTotal}, budget: {budget}, maxPositions: {MAX_POSITIONS}')
 
 with open('logs.json', 'r') as r:
     data = json.loads(r.read())

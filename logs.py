@@ -10,12 +10,12 @@ print('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
 def dailyBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO):
     print('Running daily budget strat')
     
-    totalDayTotal = STARTING_PORTOFLIO
-    budget = totalDayTotal / MAX_POSITIONS
+    totalDayGainInMoney = STARTING_PORTOFLIO
+    budget = totalDayGainInMoney / MAX_POSITIONS
     with open('logs.json', 'r') as r:
         data = json.loads(r.read())
         
-        pTotal = totalDayTotal
+        previousPortofolio = totalDayGainInMoney
         wins = 0
         loss = 0
         plWin = 0
@@ -24,9 +24,11 @@ def dailyBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO):
         #days
         for i in data:
             counter = 0
-            totalDayTotal = 0
+            totalDayGainInMoney = 0
+
             #currencies
             for j in data[i]:
+                #limit the amount of positions active at the same time in the same day
                 if counter == MAX_POSITIONS:
                     break
                 else:
@@ -53,18 +55,22 @@ def dailyBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO):
                 aftermath = ((100 + totalCurrencyPL) * budget) / 100
                 
                 #total of the whole day
-                totalDayTotal = totalDayTotal + aftermath
+                totalDayGainInMoney = totalDayGainInMoney + aftermath
                 #print(f'{i} {j} P&L: {totalCurrencyPL}%, startingAmount: {budget}, current: {aftermath}')
 
-            totalGain = (totalDayTotal * 100) / STARTING_PORTOFLIO
-            gain = (totalDayTotal * 100) / pTotal
+            #total dailyGainPercentage since the start of the run
+            totalGainPercentage = (totalDayGainInMoney * 100) / STARTING_PORTOFLIO
+
+            #daily dailyGainPercentage
+            dailyGainPercentage = (totalDayGainInMoney * 100) / previousPortofolio
 
             #idk man, makes no sense
-            gain = gain - 100
-            totalGain = totalGain - 100
+            dailyGainPercentage = dailyGainPercentage - 100
+            totalGainPercentage = totalGainPercentage - 100
 
-            print(f'{i} totalDayTotal: {totalDayTotal}, daily P&L: {gain}%, actual P&L: {totalGain}, previousTotal: {pTotal}')
-            pTotal = totalDayTotal
+            print(f'{i} totalDayGainInMoney: {totalDayGainInMoney}, daily P&L: {dailyGainPercentage}%, actual P&L: {totalGainPercentage}, previousPortofolio: {previousPortofolio}')
+            
+            previousPortofolio = totalDayGainInMoney
 
         accuracy = (wins * 100) / (wins + loss)
         profitChance = (plWin * 100) / (plWin + plLoss)
@@ -75,23 +81,23 @@ def dailyBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO):
 def onSpotBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO):
     print('Running on spot budget strat')
 
-    totalDayTotal = STARTING_PORTOFLIO
-    budget = totalDayTotal / MAX_POSITIONS
+    totalDayGainInMoney = STARTING_PORTOFLIO
+    budget = totalDayGainInMoney / MAX_POSITIONS
     with open('logs.json', 'r') as r:
         data = json.loads(r.read())
         
-        pTotal = totalDayTotal
+        previousPortofolio = totalDayGainInMoney
         wins = 0
         loss = 0
-        plWin = 0
-        plLoss = 0
 
         #days
         for i in data:
             counter = 0
-            totalDayTotal = 0
+            totalDayGainInMoney = 0
+
             #currencies
             for j in data[i]:
+                #limit the amount of positions active at the same time in the same day
                 if counter == MAX_POSITIONS:
                     break
                 else:
@@ -109,20 +115,21 @@ def onSpotBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO):
 
                     #budget + P&L
                     aftermath = ((100 + pl) * aftermath) / 100
-                    #print(f'{i} {j} new position P&L: {pl}%, startingAmount: {budget}, current: {aftermath}')
+                    print(f'{i} {j} new position P&L: {pl}%, startingAmount: {budget}, current: {aftermath}')
                 
                 #total of the whole day
-                totalDayTotal = totalDayTotal + aftermath
+                totalDayGainInMoney = totalDayGainInMoney + aftermath
 
-            totalGain = (totalDayTotal * 100) / STARTING_PORTOFLIO
-            gain = (totalDayTotal * 100) / pTotal
+            budget = totalDayGainInMoney
+            totalGainPercentage = (totalDayGainInMoney * 100) / STARTING_PORTOFLIO
+            dailyGainPercentage = (totalDayGainInMoney * 100) / previousPortofolio
 
             #idk man, makes no sense
-            gain = gain - 100
-            totalGain = totalGain - 100
+            dailyGainPercentage = dailyGainPercentage - 100
+            totalGainPercentage = totalGainPercentage - 100
 
-            print(f'{i} totalDayTotal: {totalDayTotal}, daily P&L: {gain}%, actual P&L: {totalGain}, previousTotal: {pTotal}')
-            pTotal = totalDayTotal
+            print(f'{i} totalDayGainInMoney: {totalDayGainInMoney}, daily P&L: {dailyGainPercentage}%, actual P&L: {totalGainPercentage}%, previousPortofolio: {previousPortofolio}')
+            previousPortofolio = totalDayGainInMoney
 
         accuracy = (wins * 100) / (wins + loss)
         
@@ -131,4 +138,5 @@ def onSpotBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO):
             
 
 if __name__ == '__main__':
-    onSpotBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO)
+    #onSpotBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO)
+    dailyBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO)

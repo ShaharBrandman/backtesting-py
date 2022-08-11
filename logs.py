@@ -113,14 +113,16 @@ def onSpotBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO):
                     else: 
                         loss = loss + 1
 
+                    pAftermath = aftermath
+
                     #budget + P&L
                     aftermath = ((100 + pl) * aftermath) / 100
-                    print(f'{i} {j} new position P&L: {pl}%, startingAmount: {budget}, current: {aftermath}')
+                    #print(f'{i} {j} new position P&L: {pl}%, startingAmount: {pAftermath}, current: {aftermath}')
                 
                 #total of the whole day
                 totalDayGainInMoney = totalDayGainInMoney + aftermath
 
-            budget = totalDayGainInMoney
+            budget = totalDayGainInMoney / MAX_POSITIONS
             totalGainPercentage = (totalDayGainInMoney * 100) / STARTING_PORTOFLIO
             dailyGainPercentage = (totalDayGainInMoney * 100) / previousPortofolio
 
@@ -138,5 +140,6 @@ def onSpotBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO):
             
 
 if __name__ == '__main__':
-    #onSpotBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO)
+    onSpotBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO)
+    print('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
     dailyBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO)

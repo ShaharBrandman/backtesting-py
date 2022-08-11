@@ -1,6 +1,6 @@
 import json
 
-LEVERAGE = 35
+LEVERAGE = 45
 MAX_POSITIONS = 4
 STARTING_PORTOFLIO = 100
 
@@ -8,7 +8,7 @@ print(f'Starting backtesting with {LEVERAGE}X Leverage, portoflio: {STARTING_POR
 print('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
 
 def dailyBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO):
-    print('Running daily budget strat')
+    print('Running daily budget strat (100% Portfolio)')
     
     totalDayGainInMoney = STARTING_PORTOFLIO
     budget = totalDayGainInMoney / MAX_POSITIONS
@@ -79,7 +79,7 @@ def dailyBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO):
         print(f'accuracy of: {accuracy}% with {wins} wins and {loss} losses but with Profit chance of: {profitChance}%')
 
 def onSpotBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO):
-    print('Running on spot budget strat')
+    print('Running on spot budget strat (100% Portfolio)')
 
     totalDayGainInMoney = STARTING_PORTOFLIO
     budget = totalDayGainInMoney / MAX_POSITIONS
@@ -139,7 +139,7 @@ def onSpotBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO):
         print(f'accuracy of: {accuracy}% with {wins} wins and {loss} losses')
             
 def coinTraderOnSpotBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO):
-    print('Running coinTrader on spot budget strat')
+    print('Running coinTrader on spot budget strat (50% Portfolio)')
 
     totalDayGainInMoney = STARTING_PORTOFLIO
     budget = totalDayGainInMoney / MAX_POSITIONS
@@ -199,7 +199,7 @@ def coinTraderOnSpotBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO):
         print(f'accuracy of: {accuracy}% with {wins} wins and {loss} losses')
 
 def coinTraderDailyBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO):
-    print('Running daily budget strat')
+    print('Running coinTrader daily budget strat (50% Portfolio)')
     
     totalDayGainInMoney = STARTING_PORTOFLIO
     budget = (totalDayGainInMoney / 2) / MAX_POSITIONS

@@ -330,14 +330,14 @@ def onSpotBudgetPercentagePortfolioStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTO
         print(f'accuracy of: {accuracy}% with {wins} wins and {loss} losses')
 
 if __name__ == '__main__':
-    onSpotBudgetPercentagePortfolioStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO, 50)
+    onSpotBudgetPercentagePortfolioStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO, 70)
     print('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
     onSpotBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO)
     print('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
+    coinTraderDailyPortfolioBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO)
     '''
-    coinTraderOnSpotBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO)
     print('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
     dailyPortfolioBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO)
     print('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
-    coinTraderDailyPortfolioBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO)
+    coinTraderOnSpotBudgetStrat(LEVERAGE, MAX_POSITIONS, STARTING_PORTOFLIO)
     '''
